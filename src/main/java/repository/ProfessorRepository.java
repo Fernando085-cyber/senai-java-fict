@@ -1,4 +1,4 @@
-package Repository;
+package repository;
 
 import com.escola.senai.model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
