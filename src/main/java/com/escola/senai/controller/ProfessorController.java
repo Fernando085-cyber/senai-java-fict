@@ -1,65 +1,66 @@
 package com.escola.senai.controller;
 
-import com.escola.senai.model.Aluno;
+import com.escola.senai.model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import service.AlunoService;
+import service.ProfessorService;
+
+
 
 import java.util.List;
 
-
 @Controller
-    @RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/professores")
+public class ProfessorController {
 
-        @Autowired
-        private AlunoService _alunoServiceContext;
+    @Autowired
+    private ProfessorService _professorContext;
 
-        //Listar todos
-        @GetMapping
-        public String listarAlunos(Model model) {
-            List<Aluno> alunos = _alunoServiceContext.buscarTodosAlunos();
-            model.addAttribute("alunos", alunos);
-            return "alunos/listar";
-        }
+    // Listar todos (Read)
+    @GetMapping
+    public String listarProfessores(Model model) {
+        List<Professor> professores = _professorContext.buscarTodosProfessores();
+        model.addAttribute("professores", professores);
+        return "professores/listar";
+    }
 
-    // Formulário para novo aluno
+    // Formulário para novo professor (Create)
     @GetMapping("/novo")
-    public String novoAlunoForm(Model model) {
-        model.addAttribute("aluno", new Aluno());
-        return "alunos/form";
+    public String novoProfessorForm(Model model) {
+        model.addAttribute("professor", new Professor());
+        return "professores/form";
     }
 
-    // Salvar novo aluno
+    // Salvar novo professor (Create)
     @PostMapping("/salvar")
-    public String salvarAluno(@ModelAttribute Aluno aluno) {
-        _alunoServiceContext.salvarAluno(aluno);
-        return "redirect:/alunos";
+    public String salvarProfessor(@ModelAttribute Professor professor) {
+        _professorContext.salvarProfessor(professor);
+        return "redirect:/professores";
     }
 
-    // Formulário para editar aluno
+    // Formulário para editar professor (Update)
     @GetMapping("/editar/{id}")
-    public String editarAlunoForm(@PathVariable Long id, Model model) {
-        Aluno aluno = _alunoServiceContext.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado com o ID: " + id));
-        model.addAttribute("aluno", aluno);
-        return "alunos/form";
+    public String editarProfessorForm(@PathVariable Long id, Model model) {
+        Professor professor = _professorContext.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado com o ID: " + id));
+        model.addAttribute("professor", professor);
+        return "professores/form";
     }
 
-    // Atualizar aluno
+    // Atualizar professor (Update)
     @PostMapping("/atualizar/{id}")
-    public String alunoAtualizado(@PathVariable Long id, @ModelAttribute Aluno aluno) {
-        _alunoServiceContext.salvarAluno(id, aluno);
-        return "redirect:/alunos";
+    public String atualizarProfessor(@PathVariable Long id, @ModelAttribute Professor professor) {
+        _professorContext.atualizarProfessor(id, professor);
+        return "redirect:/professores";
     }
 
-    // Deletar aluno
+    // Deletar professor (Delete)
     @GetMapping("/deletar/{id}")
-    public String deletarAluno(@PathVariable Long id) {
-        _alunoServiceContext.deletarAluno(id);
-        return "redirect:/alunos";
+    public String deletarProfessor(@PathVariable Long id) {
+        _professorContext.deletarProfessor(id);
+        return "redirect:/professores";
     }
 
 }
