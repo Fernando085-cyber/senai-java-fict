@@ -1,15 +1,15 @@
 package service;
 
-import com.escola.senai.model.Aluno;
+
 import com.escola.senai.model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.AlunoRepository;
 import repository.ProfessorRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProfessorService {
 
 
